@@ -1,0 +1,19 @@
+# Web Framework
+flask
+jinja2
+# PDF Processing
+pypdf
+# LLM and Embeddings (Open-Source)
+transformers
+sentence-transformers
+huggingface_hub
+# LangChain (Open-Source Community Version)
+langchain-community
+# Vector Store
+chromadb
+# Environment Variables
+python-dotenv
+# Utilities
+tqdm
+-e .
+
