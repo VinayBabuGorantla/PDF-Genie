@@ -1,3 +1,9 @@
+# Ignore temporary files
+temp_files/
+
+# Ignore vector database (ChromaDB)
+vector_db/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
