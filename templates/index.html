@@ -12,6 +12,23 @@
             multiFileInput.style.display = isMultiple ? "block" : "none";
             singleFileInput.style.display = isMultiple ? "none" : "block";
         }
+
+        function validateForm(event) {
+            const isMultiple = document.getElementById("multi-toggle").checked;
+            const multiInput = document.getElementById("multi-file");
+            const singleInput = document.getElementById("single-file");
+
+            if (isMultiple && multiInput.files.length === 0) {
+                alert("Please select up to 5 PDF files.");
+                event.preventDefault();
+                return false;
+            } else if (!isMultiple && singleInput.files.length === 0) {
+                alert("Please select a PDF file.");
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        }
     </script>
 </head>
 <body>
@@ -36,8 +53,8 @@
     </label>
     <br><br>
 
-    <form action="{{ url_for('upload_pdf') }}" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" id="single-file" accept=".pdf" required><br><br>
+    <form action="{{ url_for('upload_pdf') }}" method="post" enctype="multipart/form-data" onsubmit="return validateForm(event)">
+        <input type="file" name="file" id="single-file" accept=".pdf"><br><br>
         <input type="file" name="files" id="multi-file" accept=".pdf" multiple style="display:none;"><br><br>
         <input type="submit" value="Upload">
     </form>
