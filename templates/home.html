@@ -7,6 +7,19 @@
 <body>
     <h2>Ask a Question About Your PDF</h2>
 
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+          {% for category, message in messages %}
+            <li style="color: {% if category == 'error' %}red{% else %}green{% endif %};">
+                {{ message }}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
     {% if question %}
         <p><strong>Question:</strong> {{ question }}</p>
     {% endif %}

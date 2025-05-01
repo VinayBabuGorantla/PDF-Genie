@@ -3,11 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Upload PDF - PDF Genie</title>
+    <script>
+        function toggleUploadMode() {
+            const multiFileInput = document.getElementById("multi-file");
+            const singleFileInput = document.getElementById("single-file");
+            const isMultiple = document.getElementById("multi-toggle").checked;
+
+            multiFileInput.style.display = isMultiple ? "block" : "none";
+            singleFileInput.style.display = isMultiple ? "none" : "block";
+        }
+    </script>
 </head>
 <body>
     <h2>Upload a PDF</h2>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+          {% for category, message in messages %}
+            <li style="color: {% if category == 'error' %}red{% else %}green{% endif %};">
+                {{ message }}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <label>
+        <input type="checkbox" id="multi-toggle" onclick="toggleUploadMode()">
+        Upload multiple PDFs (Max: 5 files, 25MB total)
+    </label>
+    <br><br>
+
     <form action="{{ url_for('upload_pdf') }}" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".pdf" required><br><br>
+        <input type="file" name="file" id="single-file" accept=".pdf" required><br><br>
+        <input type="file" name="files" id="multi-file" accept=".pdf" multiple style="display:none;"><br><br>
         <input type="submit" value="Upload">
     </form>
 </body>
